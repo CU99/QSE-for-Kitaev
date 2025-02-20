@@ -1,10 +1,10 @@
 module my_Kitaev
 
 using Yao
-using YaoBlocks
+# using YaoBlocks
 #using YaoExtensions
 #using GalacticFlux
-using Flux
+using Optimisers
 using LinearAlgebra
 using SparseArrays
 using Random

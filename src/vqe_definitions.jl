@@ -661,13 +661,13 @@ function perform_vqe(nqbt::Int, ψ0::ArrayReg, depth::Int, niter::Int, Rlearn::F
             flush(Core.stdout)
         end
     elseif choose_optimizer == "ADAM"
-        optimizer = Flux.Optimise.ADAM(Rlearn) # use Adam as most popular optimizer in deep learning
         params = parameters(circuit)
         Energies_vqe = []
         Fidelities_vqe = []
         en_min = real(expect(h, ψ0 =>circuit))
         params_min = parameters(circuit)
         fid_en_min = Yao.fidelity(psitg, ψ0 =>circuit)
+        opt = Optimisers.setup(Optimisers.ADAM(0.1), params)
         # magn_z = []
         # magn_y = []
         # magn_x = []
@@ -681,7 +681,8 @@ function perform_vqe(nqbt::Int, ψ0::ArrayReg, depth::Int, niter::Int, Rlearn::F
         println("Step 0, energy = $en_min, fidelity = $fid_en_min")
         for i = 1:niter
             _, grad_params = expect'(h, ψ0=>circuit)
-            dispatch!(circuit, Flux.Optimise.update!(optimizer, params, grad_params))
+            Optimisers.update!(opt, params, grad_params)
+            dispatch!(circuit, params)
             if gpu_flag == "yes" # use GPU only for expectation value
                 energy = real(expect(h, (ψ0 |> cu) =>circuit)) # plotting energy shall be optional
             elseif gpu_flag == "no"

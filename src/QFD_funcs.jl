@@ -144,7 +144,7 @@ function find_GS_QFD(Lx, Lz, BC, J, hz, n_l, n_k,type)
     end
     #retrieve h=0 GS
     #file = readdlm("./h=0_GS/N=$(n)_h=0.0_J=$(Jxyz[1])_lr=0.08_depth=$(depth)_niter=500.dat", '\t', Float64, '\n')
-    file = readdlm("C:/Users/cu234/OneDrive - University of Exeter/Projects/Kitaev VQE/Kitaev_VQE_statevec/Kitaev_VQE_statevec/Kitaev code/h=0_GS/N=$(n)_h=0.0_J=$(Jxyz[1])_lr=0.08_depth=$(depth)_niter=500.dat", '\t', Float64, '\n')
+    file = readdlm("../data/N=$(n)_h=0.0_J=$(Jxyz[1])_lr=0.08_depth=$(depth)_niter=500.dat", '\t', Float64, '\n')
     params = file[end, :]
     circuit = dispatch!(vqe_centralizer_ansatz(n,depth,Lx,Lz,BC), params)
     ψ = prepare_inital_state(n, num_vortices, plaq_seq, LXverts, LZverts, print_initial, GPU_enabled,Lx,Lz,BC)
@@ -407,7 +407,7 @@ function find_GS_trot(Lx, Lz, BC, J, hz, n_l,n_k,r,order,type)
     end
     #retrieve h=0 GS
     #file = readdlm("./h=0_GS/N=$(n)_h=0.0_J=$(Jxyz[1])_lr=0.08_depth=$(depth)_niter=500.dat", '\t', Float64, '\n')
-    file = readdlm("C:/Users/cu234/OneDrive - University of Exeter/Projects/Kitaev VQE/Kitaev_VQE_statevec/Kitaev_VQE_statevec/Kitaev code/h=0_GS/N=$(n)_h=0.0_J=$(Jxyz[1])_lr=0.08_depth=$(depth)_niter=500.dat", '\t', Float64, '\n')
+    file = readdlm("../data/N=$(n)_h=0.0_J=$(Jxyz[1])_lr=0.08_depth=$(depth)_niter=500.dat", '\t', Float64, '\n')
     params = file[end, :]
     circuit = dispatch!(vqe_centralizer_ansatz(n,depth,Lx,Lz,BC), params)
     ψ = prepare_inital_state(n, num_vortices, plaq_seq, LXverts, LZverts, print_initial, GPU_enabled,Lx,Lz,BC)
